@@ -1,0 +1,13 @@
+mat-sidenav-container {
+  box-sizing: border-box; // width と height の中に padding と border を含める。
+  height: calc(100vh - 64px);
+}
+
+.active {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.toolbar {
+  position: relative;
+  z-index: 6;
+}
