@@ -1,0 +1,20 @@
+.wind-arrow {
+  display: inline-block; // 要素の並び方はinline的で、要素の中身はblock的な性質を持つ
+  transform-origin: center; // 要素の変形における原点を設定
+  transition-duration: 500ms; // 変化に掛かる時間を500msに指定
+  transition-timing-function: ease-in-out; // 変化のタイミング・進行割合を指定する際に使用
+  transition-property: transform; // transition（時間的変化）効果を適用するCSSプロパティ名を指定する際に使用
+}
+
+.current-weather-table {
+  border-collapse: collapse; // 隣接するセルのボーダーを重ねて表示するか、間隔をあけて表示するかを指定
+  th {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 20px;
+  }
+
+  td {
+    padding: 10px;
+    text-align: center;
+  }
+}
