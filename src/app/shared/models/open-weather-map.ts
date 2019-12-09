@@ -49,12 +49,12 @@ export declare namespace OpenWeatherMap {
 
   export interface DailyWeather {
     dt: number;
+    main: Main;
     temp: Temp;
     pressure: number;
     humidity: number;
     weather: Weather[];
-    speed: number;
-    deg: number;
+    wind: Wind;
     clouds: number;
     rain: number;
   }
