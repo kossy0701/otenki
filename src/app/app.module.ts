@@ -3,7 +3,9 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeJa from '@angular/common/locales/ja';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoadingIntercepter } from './shared/class/loading-intercepter';
+import { LoadingService } from './services/loading.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -47,8 +49,10 @@ registerLocaleData(localeJa, 'ja');
     MatInputModule
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'ja-JP'},
     OpenWeatherMapService,
-    { provide: LOCALE_ID, useValue: 'ja-JP'}
+    LoadingService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingIntercepter, multi: true }
   ],
   bootstrap: [AppComponent]
 })
