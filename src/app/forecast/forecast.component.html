@@ -51,11 +51,11 @@
         <span>{{weather.weather[0].description}}</span>
       </p>
       <p matLine>
-        <span>気温: {{weather.temp}}</span>
-        <span>最高気温: {{weather.temp}}</span>
-        <span>最低気温: {{weather.temp}}</span>
-        <span>湿度: {{weather.humidity}}</span>
-        <span>風: <span class="wind-arrow" [style.transform]="'rotate('+weather.deg+'deg)'">↑</span>{{weather.speed}}</span>
+        <span>気温: {{weather.main.temp}} </span>
+        <span>最高気温: {{weather.main.temp_max}} </span>
+        <span>最低気温: {{weather.main.temp_min}} </span>
+        <span>湿度: {{weather.main.humidity}} </span>
+        <span>風: <span class="wind-arrow" [style.transform]="'rotate('+weather.wind.deg+'deg)'">↑</span>{{weather.wind.speed}} </span>
       </p>
     </mat-list-item>
   </mat-list>
