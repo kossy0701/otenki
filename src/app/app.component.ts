@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
 import { LoadingService } from './services/loading.service';
 import { Observable} from 'rxjs';
+
+import { AreaService} from './services/area.service';
+import { Area } from './shared/models/area';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +15,12 @@ import { Observable} from 'rxjs';
 export class AppComponent implements OnInit {
   public title = 'otenki';
   public loadingObservable: Observable<boolean>;
+  public areasObservable: Observable<Area[]>;
 
-  constructor(public loadingService: LoadingService) {}
+  constructor(public loadingService: LoadingService, private areaService: AreaService) {}
 
   ngOnInit() {
     this.loadingObservable = this.loadingService.loading;
+    this.areasObservable = this.areaService.getList();
   }
 }
