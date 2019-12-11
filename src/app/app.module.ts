@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localeJa from '@angular/common/locales/ja';
 
@@ -22,6 +23,7 @@ import { HomeComponent } from './home/home.component';
 import { AreaEditComponent } from './area-edit/area-edit.component';
 import { ForecastComponent } from './forecast/forecast.component';
 
+import { AreaService } from './services/area.service';
 import { OpenWeatherMapService } from './services/open-weather-map.service';
 import { UnixTimeDatePipe } from './pipes/unix-time-date.pipe';
 
@@ -39,6 +41,7 @@ registerLocaleData(localeJa, 'ja');
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatProgressBarModule,
@@ -51,6 +54,7 @@ registerLocaleData(localeJa, 'ja');
   providers: [
     { provide: LOCALE_ID, useValue: 'ja-JP'},
     OpenWeatherMapService,
+    AreaService,
     LoadingService,
     { provide: HTTP_INTERCEPTORS, useClass: LoadingIntercepter, multi: true }
   ],

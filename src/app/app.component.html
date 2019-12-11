@@ -12,8 +12,14 @@
       <mat-list-item routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         トップ
       </mat-list-item>
-      <mat-list-item routerLink="/edit" routerLinkActive="active">
+      <mat-list-item routerLink="/area/edit" routerLinkActive="active">
         編集
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+      <h3 matSubheader>天気予報</h3>
+      <mat-list-item *ngFor="let pref of (areasObservable | async)" [routerLink]="['/forecast', pref.city]" routerLinkActive="active">
+        {{pref.label}}
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
