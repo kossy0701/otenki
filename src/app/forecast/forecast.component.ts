@@ -4,10 +4,13 @@ import { OpenWeatherMapService } from '../services/open-weather-map.service';
 import { OpenWeatherMap } from '../shared/models/open-weather-map';
 
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { transition, trigger, useAnimation, query, stagger, style } from '@angular/animations';
 import { slideFadeIn } from '../app.animations';
+
+import { ForecastChartData } from '../shared/models/forecast-chart-data';
+import { UnixTimeDatePipe } from '../pipes/unix-time-date.pipe';
 
 @Component({
   selector: 'app-forecast',
@@ -32,6 +35,10 @@ import { slideFadeIn } from '../app.animations';
 export class ForecastComponent implements OnInit {
   public currentWeatherObservable: Observable<OpenWeatherMap.Current>;
   public forecastObservable: Observable<OpenWeatherMap.Forecast>;
+  public lineChartLabels: string[] = [];
+  public lineChartData: ForecastChartData[] = [];
+
+  private unixTimeDatePipe: UnixTimeDatePipe = new UnixTimeDatePipe();
 
   constructor(private route: ActivatedRoute, private openWeatherMapService: OpenWeatherMapService) { }
 
@@ -41,9 +48,33 @@ export class ForecastComponent implements OnInit {
         return this.openWeatherMapService.current(param.city);
       }));
 
-    this.forecastObservable = this.route.params.pipe(switchMap(param => {
-      return this.openWeatherMapService.forecast(param.city);
+    this.forecastObservable =
+      this.route.params.pipe(switchMap(param => {
+      return this.openWeatherMapService.forecast(param.city).pipe(map((res: OpenWeatherMap.Forecast) => {
+        this.lineChartLabels = [];
+
+        const maxTemp: ForecastChartData = {
+          data: [],
+          label: '最高気温'
+        };
+        const minTemp: ForecastChartData = {
+          data: [],
+          label: '最低気温'
+        };
+
+        res.list.forEach((weather: OpenWeatherMap.DailyWeather) => {
+          const day = this.unixTimeDatePipe.transform(weather.dt, 'MM/dd');
+          this.lineChartLabels.push(day);
+          maxTemp.data.push(weather.main.temp_max);
+          minTemp.data.push(weather.main.temp_min);
+        });
+
+        this.lineChartData = [
+          maxTemp,
+          minTemp
+        ];
+        return res;
+      }));
     }));
   }
-
 }

@@ -3,6 +3,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localeJa from '@angular/common/locales/ja';
+import { ChartsModule } from 'ng2-charts';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingIntercepter } from './shared/class/loading-intercepter';
@@ -43,6 +44,7 @@ registerLocaleData(localeJa, 'ja');
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
+    ChartsModule,
     MatToolbarModule,
     MatProgressBarModule,
     MatButtonModule,
